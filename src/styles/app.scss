@@ -1,0 +1,15 @@
+@import "./reset";
+@import "./variables";
+@import "./mixin";
+
+html { font-size: 87.5%; } /*15px*/
+
+body {
+	min-height: 100vh;
+	margin: 0;
+	font-family: var(--font-family);
+	color: rgb(var(--primary-color));
+}
+
+@import "./layout";
+@import "./typography";

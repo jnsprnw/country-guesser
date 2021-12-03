@@ -1,0 +1,21 @@
+{
+  "name": "sveltekit",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "svelte-kit dev",
+    "build": "svelte-kit build",
+    "package": "svelte-kit package",
+    "preview": "svelte-kit preview"
+  },
+  "devDependencies": {
+    "@sveltejs/adapter-auto": "next",
+    "@sveltejs/adapter-netlify": "^1.0.0-next.35",
+    "@sveltejs/kit": "next",
+    "lodash": "^4.17.21",
+    "minisearch": "^3.2.0",
+    "sass": "^1.44.0",
+    "svelte": "^3.44.0",
+    "svelte-preprocess": "^4.9.8"
+  },
+  "type": "module"
+}

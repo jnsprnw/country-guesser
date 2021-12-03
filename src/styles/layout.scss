@@ -1,0 +1,16 @@
+#svelte {
+  width: calc(100% - 2 * var(--spacing-1));
+  height: calc(100% - 2 * var(--spacing-1));
+  display: grid;
+  grid-gap: var(--spacing-1);
+  margin: 0 var(--spacing-1);
+  grid-template-rows: repeat(2, auto);
+  align-items: start;
+  align-content: start;
+}
+
+.page-main {
+	display: grid;
+  grid-gap: var(--spacing-1);
+  grid-template-columns: repeat(3, 1fr);
+}
