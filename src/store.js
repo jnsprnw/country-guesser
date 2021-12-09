@@ -3,11 +3,14 @@ import * as countries_raw from "./data/countries.json";
 import uniq from 'lodash/uniq';
 import get from 'lodash/get';
 import MiniSearch from 'minisearch';
+import { MIN_TERM_LENGTH, OUTPUT_OPTIONS, INPUT_TEMPLATE, MAX_NUMBER_OF_RESULTS } from './config.js';
+
+export const OUTPUT = writable(OUTPUT_OPTIONS[0]);
 
 const miniSearch = new MiniSearch({
 	idField: 'i',
   fields: ['name.common', 'name.official', 'cca2', 'cca3', 'cioc', 'ccn3', 'altSpellings'], // fields to index for full-text search
-  storeFields: ['label'], // fields to return with search results
+  storeFields: ['label', ...OUTPUT_OPTIONS], // fields to return with search results
   searchOptions: {
     prefix: true,
     fuzzy: 0.2
@@ -30,7 +33,7 @@ miniSearch.addAll(countries);
 export const MATCHES = writable({});
 export const CUSTOM = writable({});
 
-export const INPUT_RAW = writable(null);
+export const INPUT_RAW = writable(INPUT_TEMPLATE);
 export const INPUT = derived(INPUT_RAW, (i) => {
 	return i ? i.split('\n').map(d => d.trim()).filter(d => d.length) : [];
 });
@@ -43,12 +46,12 @@ UNIQUE_INPUT.subscribe(data => {
 	const matches = take(MATCHES)
 	console.log({ matches })
 	data.forEach(datum => {
-		if (datum.length > 3) {
+		if (datum.length >= MIN_TERM_LENGTH) {
 			if (matches && matches.hasOwnProperty(datum)) {
 				console.log('Found in cache')
 			} else {
 				MATCHES.update(d => {
-			    d[datum] = miniSearch.search(datum);
+			    d[datum] = miniSearch.search(datum).slice(0, MAX_NUMBER_OF_RESULTS);
 			    return d;
 				});
 			}
@@ -57,15 +60,19 @@ UNIQUE_INPUT.subscribe(data => {
 	// console.log(value);
 });
 
-export const OPTIONS = derived([UNIQUE_INPUT, MATCHES], ([input, matches]) => {
+export const OPTIONS = derived([UNIQUE_INPUT, MATCHES, CUSTOM], ([input, matches, custom]) => {
 	return input.map((datum) => {
 		const treffer = get(matches, [datum]);
+		const selection = get(custom, datum, 0);
+		const pair = get(treffer, selection);
 		const warning = !treffer || treffer.length === 0;
 		let status = 'ERROR';
 		if (treffer && treffer.length > 0) {
 			status = 'SUCCESS';
 
-			if (treffer.length > 1) {
+			if (treffer[0].score < 30) {
+				status = 'WARNING';
+			} else if (treffer.length > 1) {
 				const first = treffer[0].score;
 				const second = treffer[1].score;
 				const percent = 1 / first * second;
@@ -74,17 +81,14 @@ export const OPTIONS = derived([UNIQUE_INPUT, MATCHES], ([input, matches]) => {
 				}
 			}
 		}
-		return [datum, treffer, status];
+		return [datum, treffer, status, selection, pair];
 	})
 })
 
-export const PAIRS = derived([INPUT, MATCHES, CUSTOM], ([input, matches, custom]) => {
+export const PAIRS = derived([INPUT, MATCHES, CUSTOM, OUTPUT], ([input, matches, custom, ouput]) => {
 	return input.map((datum) => {
 		const user = get(custom, datum);
-		if (user) {
-			return get(countries, [user, 'label'])
-		} else {
-			return get(matches, [datum, 0, 'label']);
-		}
+		const partner = get(matches, [datum, user ? user : 0, ouput])
+		return [datum, partner]
 	})
 })

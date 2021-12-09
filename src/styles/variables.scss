@@ -44,6 +44,11 @@
   --gray-8: #111;
 
   --color-fg: var(--gray-8);
+
+  --shadow-small-none: 0 5px 10px transparent;
+  --shadow-small-color: 0 5px 10px rgba(0,0,0,0.12);
+
+  --color-interactive: #0070f3;
 }
 
 $narrow: 600px !default;

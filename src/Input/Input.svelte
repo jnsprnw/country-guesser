@@ -45,7 +45,7 @@
 >
   <label
     for="{id}"
-    class:bx--label="{true}"
+    class:label="{true}"
     class:bx--label--disabled="{disabled}"
   >
     {labelText}
@@ -77,3 +77,25 @@
       on:blur></textarea>
   </div>
 </div>
+
+<style type="scss">
+  textarea {
+    padding: calc(var(--spacing-1) / 3);
+    resize: none;
+    background-color: var(--gray-1);
+    border: 0;
+    border: 1px solid var(--gray-2);
+    transition: border-color var(--transition);
+    width: 100%;
+
+    &:focus {
+      border-color: var(--color-interactive);
+      outline: none;
+    }
+  }
+
+  .bx--text-area__wrapper {
+    width: 100%;
+  }
+
+</style>
