@@ -5,12 +5,16 @@ import get from 'lodash/get';
 import MiniSearch from 'minisearch';
 import { MIN_TERM_LENGTH, OUTPUT_OPTIONS, INPUT_TEMPLATE, MAX_NUMBER_OF_RESULTS } from './config.js';
 
-export const OUTPUT = writable(OUTPUT_OPTIONS[0]);
+function getOptionValue (option) {
+	return get(option, 'value');
+}
+
+export const OUTPUT = writable(getOptionValue(OUTPUT_OPTIONS[0]));
 
 const miniSearch = new MiniSearch({
 	idField: 'i',
   fields: ['name.common', 'name.official', 'cca2', 'cca3', 'cioc', 'ccn3', 'altSpellings'], // fields to index for full-text search
-  storeFields: ['label', ...OUTPUT_OPTIONS], // fields to return with search results
+  storeFields: ['label', ...OUTPUT_OPTIONS.map(o => getOptionValue(o))], // fields to return with search results
   searchOptions: {
     prefix: true,
     fuzzy: 0.2
@@ -25,10 +29,6 @@ const countries = countries_raw.default.map((d, i) => {
 })
 
 miniSearch.addAll(countries);
-
-// export const COUNTRIES = readable([], (set) => {
-//   set(countries_raw.default);
-// });
 
 export const MATCHES = writable({});
 export const CUSTOM = writable({});
@@ -88,7 +88,8 @@ export const OPTIONS = derived([UNIQUE_INPUT, MATCHES, CUSTOM], ([input, matches
 export const PAIRS = derived([INPUT, MATCHES, CUSTOM, OUTPUT], ([input, matches, custom, ouput]) => {
 	return input.map((datum) => {
 		const user = get(custom, datum);
-		const partner = get(matches, [datum, user ? user : 0, ouput])
-		return [datum, partner]
+		const name = get(matches, [datum, user ? user : 0, 'name.common']);
+		const code = get(matches, [datum, user ? user : 0, ouput]);
+		return [datum, code, name]
 	})
 })

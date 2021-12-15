@@ -4,34 +4,45 @@
 	import isUndefined from 'lodash/isUndefined';
 	import { writable } from 'svelte/store';
 	const DELIMITER = writable(DELIMITERS[0].value);
-	const INCLUDE_INPUT = writable(true);
+	const INCLUDE_INPUT = writable(false);
+	const INCLUDE_NAME = writable(false);
 </script>
 
 <div class="page-output">
-	<h2 class="label">Copy matchings</h2>
 	<header>
+		<h2 class="label">Copy matchings</h2>
+		<label>
+			Output country code
+			<select bind:value={$OUTPUT}>
+				{#each OUTPUT_OPTIONS as question}
+					<option value={question.value}>
+						{question.label}
+					</option>
+				{/each}
+			</select>
+		</label>
 		<label>
 			<input type="checkbox" bind:checked={$INCLUDE_INPUT}>
-			Include input
+			Include input value
 		</label>
-		<select bind:value={$DELIMITER} disabled={!$INCLUDE_INPUT}>
-			{#each DELIMITERS as { value, label }}
-				<option value={value}>
-					{ label }
-				</option>
-			{/each}
-		</select>
-		<select bind:value={$OUTPUT}>
-			{#each OUTPUT_OPTIONS as question}
-				<option value={question}>
-					{question}
-				</option>
-			{/each}
-		</select>
+		<label>
+			<input type="checkbox" bind:checked={$INCLUDE_NAME}>
+			Include common name
+		</label>
+		<label>
+			Separate output by
+			<select bind:value={$DELIMITER} disabled={!$INCLUDE_INPUT && !$INCLUDE_NAME}>
+				{#each DELIMITERS as { value, label }}
+					<option value={value}>
+						{ label }
+					</option>
+				{/each}
+			</select>
+		</label>
 	</header>
 	<pre class="pairs">
-		{#each $PAIRS as [input, partner]}
-		{#if $INCLUDE_INPUT}{input}{ @html $DELIMITER }{/if}{isUndefined(partner) ? '🚫' : partner}<br />
+		{#each $PAIRS as [input, code, name]}
+		{#if $INCLUDE_INPUT}{input}{ @html $DELIMITER }{/if}{#if $INCLUDE_NAME}{name}{ @html $DELIMITER }{/if}{isUndefined(code) ? 'unknown' : code}<br />
 		{/each}
 	</pre>
 </div>
@@ -44,10 +55,25 @@
 	    border: 0;
 	    border: 1px solid var(--gray-2);
 	    padding: calc(var(--spacing-1) / 3);
+
 	    &:focus {
 	      border-color: var(--color-interactive);
 	      outline: none;
 	    }
+		}
+
+		header {
+			border-bottom: 1px solid var(--gray-2);
+			margin-bottom: var(--spacing-1);
+			padding-bottom: var(--spacing-1);
+			display: grid;
+			grid-template-columns: auto 1fr 2fr;
+			grid-column-gap: var(--spacing-1);
+			grid-row-gap: var(--spacing-1);
+
+			.label, label {
+				grid-column-end: span 3;
+			}
 		}
 	}
 

@@ -1,5 +1,5 @@
 :root {
-	--font-family: Lato, Arial, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
+	--font-family: Inter, Arial, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
 		Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 	--primary-color: 0 0 0;
 
@@ -18,6 +18,7 @@
 	--transition: 0.3s ease;
 
 	--weight-default: 400;
+	--weight-medium: 500;
 	--weight-bold: 700;
 
 	--color-bg: #fff;
@@ -49,6 +50,16 @@
   --shadow-small-color: 0 5px 10px rgba(0,0,0,0.12);
 
   --color-interactive: #0070f3;
+  --color-accent-1: #F7FAFF;
+  --color-accent-2: #E2EFFE;
+  --color-accent-3: #B8D7FC;
+  --color-accent-4: #8EC0FA;
+  --color-accent-5: #63A7F8;
+  --color-accent-6: #308BF5;
+  --color-accent-7: #006CEB;
+  --color-accent-8: #005AC4;
+  --color-accent-9: #00489C;
+  --color-accent-10: #00397C;
 }
 
 $narrow: 600px !default;

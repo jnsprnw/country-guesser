@@ -16,6 +16,22 @@
 
 <div class="page-check">
 	<h2 class="label">Check for ambiguity</h2>
+	<div class="legend">
+		<dl>
+			<dt>✅</dt>
+			<dd class="dd-title">Successfully match</dd>
+			<dd class="dd-title"><small>12</small></dd>
+			<dd class="dd-info">At least one matching country was found with a high confidence.</dd>
+			<dt>⚠️</dt>
+			<dd class="dd-title">Ambiguous result</dd>
+			<dd class="dd-title"><small>12</small></dd>
+			<dd class="dd-info">Either one match with a low confidence was found or the top matches have a very similar confidence score rendering them both as plausible matches.</dd>
+			<dt>🚫</dt>
+			<dd class="dd-title">Error</dd>
+			<dd class="dd-title"><small>12</small></dd>
+			<dd class="dd-info">No plausible match could be found for the specific input.</dd>
+		</dl>
+	</div>
 	<ul class="inputs">
 		{#each $OPTIONS as [input, treffer, status, selection, pair]}
 		<li class="input">
@@ -38,6 +54,26 @@
 
 <style type="scss">
 	.page-check {
+		.legend {
+			border-bottom: 1px solid var(--gray-2);
+			margin-bottom: var(--spacing-1);
+			padding-bottom: var(--spacing-1);
+
+			dl {
+				display: grid;
+				grid-template-columns: auto 1fr 2fr;
+				grid-column-gap: var(--spacing-1);
+				// grid-row-gap: calc(var(--spacing-1) / 4);
+
+				.dd-info {
+					grid-column-start: 2;
+					grid-column-end: span 2;
+					margin-top: calc(var(--spacing-1) / 4);
+					margin-bottom: calc(var(--spacing-1));
+				}
+			}
+		}
+
 		.inputs {
 			list-style: none;
 			padding: 0;

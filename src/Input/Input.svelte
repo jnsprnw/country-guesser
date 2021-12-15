@@ -48,7 +48,8 @@
     class:label="{true}"
     class:bx--label--disabled="{disabled}"
   >
-    {labelText}
+    <h2>{labelText}</h2>
+    <p>Paste a list of country names in the left panel. Next, check the possible matches and copy the output list.</p>
   </label>
   <div
     class:bx--text-area__wrapper="{true}"
@@ -88,8 +89,12 @@
     transition: border-color var(--transition);
     width: 100%;
 
+    &:hover {
+      border-color: var(--color-accent-4);
+    }
+
     &:focus {
-      border-color: var(--color-interactive);
+      border-color: var(--color-accent-7);
       outline: none;
     }
   }
