@@ -1,5 +1,5 @@
 import { writable, readable, derived, get as take } from 'svelte/store';
-import * as countries_raw from "./data/countries.json";
+import * as countries_raw from "./data/countries-1.json";
 import uniq from 'lodash/uniq';
 import get from 'lodash/get';
 import MiniSearch from 'minisearch';
@@ -13,7 +13,7 @@ export const OUTPUT = writable(getOptionValue(OUTPUT_OPTIONS[0]));
 
 const miniSearch = new MiniSearch({
 	idField: 'i',
-  fields: ['name.common', 'name.official', 'cca2', 'cca3', 'cioc', 'ccn3', 'altSpellings'], // fields to index for full-text search
+  fields: ['label', 'cca2', 'cca3', 'cioc', 'ccn3', 'variations'], // fields to index for full-text search
   storeFields: ['label', ...OUTPUT_OPTIONS.map(o => getOptionValue(o))], // fields to return with search results
   searchOptions: {
     prefix: true,
@@ -24,11 +24,13 @@ const miniSearch = new MiniSearch({
   }
 });
 
-const countries = countries_raw.default.map((d, i) => {
-	return { ...d, label: d.name.common, i };
-})
+// const countries = countries_raw.default.map((d, i) => {
+// 	const translations = uniq(flatten(map(get(d, 'translations', {}), d => [d.official, d.common])));
+// 	console.log(translations)
+// 	return { ...d, label: d.name.common, i };
+// })
 
-miniSearch.addAll(countries);
+miniSearch.addAll(countries_raw.default);
 
 export const MATCHES = writable({});
 export const CUSTOM = writable({});
@@ -44,7 +46,7 @@ export const UNIQUE_INPUT = derived(INPUT, (arr) => {
 
 UNIQUE_INPUT.subscribe(data => {
 	const matches = take(MATCHES)
-	console.log({ matches })
+	// console.log({ matches })
 	data.forEach(datum => {
 		if (datum.length >= MIN_TERM_LENGTH) {
 			if (matches && matches.hasOwnProperty(datum)) {

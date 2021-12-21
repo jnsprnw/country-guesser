@@ -20,15 +20,15 @@
 		<dl>
 			<dt>✅</dt>
 			<dd class="dd-title">Successfully match</dd>
-			<dd class="dd-title"><small>12</small></dd>
+			<dd class="dd-title"><small>0</small></dd>
 			<dd class="dd-info">At least one matching country was found with a high confidence.</dd>
 			<dt>⚠️</dt>
 			<dd class="dd-title">Ambiguous result</dd>
-			<dd class="dd-title"><small>12</small></dd>
+			<dd class="dd-title"><small>0</small></dd>
 			<dd class="dd-info">Either one match with a low confidence was found or the top matches have a very similar confidence score rendering them both as plausible matches.</dd>
 			<dt>🚫</dt>
 			<dd class="dd-title">Error</dd>
-			<dd class="dd-title"><small>12</small></dd>
+			<dd class="dd-title"><small>0</small></dd>
 			<dd class="dd-info">No plausible match could be found for the specific input.</dd>
 		</dl>
 	</div>
