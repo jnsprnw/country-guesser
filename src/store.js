@@ -78,7 +78,7 @@ export const OPTIONS = derived([UNIQUE_INPUT, MATCHES, CUSTOM], ([input, matches
 				const first = treffer[0].score;
 				const second = treffer[1].score;
 				const percent = 1 / first * second;
-				if (percent > 0.9) {
+				if (percent > 0.75) {
 					status = 'WARNING';
 				}
 			}
