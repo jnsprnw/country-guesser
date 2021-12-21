@@ -1,7 +1,7 @@
 <script>
 	import { PAIRS, OUTPUT } from '$lib/../store.js';
 	import { OUTPUT_OPTIONS, DELIMITERS } from '$lib/../config.js';
-	import isUndefined from 'lodash/isUndefined';
+	import isUndefined from 'lodash/isUndefined.js';
 	import { writable } from 'svelte/store';
 	const DELIMITER = writable(DELIMITERS[0].value);
 	const INCLUDE_INPUT = writable(false);

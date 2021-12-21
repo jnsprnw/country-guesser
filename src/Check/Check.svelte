@@ -1,7 +1,7 @@
 <script>
 	import Accordion from './Accordion.svelte';
 	import { OPTIONS, CUSTOM } from '$lib/../store.js';
-	import round from 'lodash/round';
+	import round from 'lodash/round.js';
 	import chroma from 'chroma-js';
 
 	const color = chroma.scale(['#f7f4f9', '#ce1256']).mode('lab').domain([200, 30]);

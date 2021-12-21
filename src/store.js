@@ -1,7 +1,7 @@
 import { writable, readable, derived, get as take } from 'svelte/store';
 import * as countries_raw from "./data/countries-1.json";
-import uniq from 'lodash/uniq';
-import get from 'lodash/get';
+import uniq from 'lodash/uniq.js';
+import get from 'lodash/get.js';
 import MiniSearch from 'minisearch';
 import { MIN_TERM_LENGTH, OUTPUT_OPTIONS, INPUT_TEMPLATE, MAX_NUMBER_OF_RESULTS } from './config.js';
 
