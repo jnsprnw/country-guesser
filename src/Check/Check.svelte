@@ -2,6 +2,7 @@
 	import Accordion from './Accordion.svelte';
 	import { OPTIONS, CUSTOM } from '$lib/../store.js';
 	import round from 'lodash/round.js';
+	import countBy from 'lodash/countBy.js';
 	import chroma from 'chroma-js';
 
 	const color = chroma.scale(['#f7f4f9', '#ce1256']).mode('lab').domain([200, 30]);
@@ -12,6 +13,8 @@
 			return d;
 		})
 	}
+
+	$: ({ SUCCESS, WARNING, ERROR } = countBy($OPTIONS, ([, , status]) => status));
 </script>
 
 <div class="page-check">
@@ -20,15 +23,15 @@
 		<dl>
 			<dt>✅</dt>
 			<dd class="dd-title">Successfully match</dd>
-			<dd class="dd-title"><small>0</small></dd>
+			<dd class="dd-title"><small>{ SUCCESS }</small></dd>
 			<dd class="dd-info">At least one matching country was found with a high confidence.</dd>
 			<dt>⚠️</dt>
 			<dd class="dd-title">Ambiguous result</dd>
-			<dd class="dd-title"><small>0</small></dd>
+			<dd class="dd-title"><small>{ WARNING }</small></dd>
 			<dd class="dd-info">Either one match with a low confidence was found or the top matches have a very similar confidence score rendering them both as plausible matches.</dd>
 			<dt>🚫</dt>
 			<dd class="dd-title">Error</dd>
-			<dd class="dd-title"><small>0</small></dd>
+			<dd class="dd-title"><small>{ ERROR }</small></dd>
 			<dd class="dd-info">No plausible match could be found for the specific input.</dd>
 		</dl>
 	</div>
@@ -39,10 +42,10 @@
 			<strong>{input}</strong>
 			{#if treffer && treffer.length}
 			<Accordion isDisabled={treffer.length < 2}>
-			<strong class="current-selection" slot="title">{#if pair }<span class:is-custom="{ selection !== 0 }">{ pair.label }</span>{/if} <i class="score" style="background-color: {color(pair.score)}" title="{ pair.score }" /></strong>
+			<strong class="current-selection" slot="title">{#if pair }<span class:is-custom="{ selection !== 0 }">{ pair.label }</span>{/if} <i class="score" style="background-color: {color(pair.score)}" title="Confidence score: { Math.round(pair.score) }" /></strong>
 			<ul slot="content" class="options">
 				{#each treffer as { label, score, id }, i}
-				<li class="option" class:is-selected="{ selection === i }" on:click={() => selectCustomMatch(input, i)}><span>{ label }</span><i class="score" style="background-color: {color(score)}" title="{ score }" /></li>
+				<li class="option" class:is-selected="{ selection === i }" on:click={() => selectCustomMatch(input, i)}><span>{ label }</span><i class="score" style="background-color: {color(score)}" title="Confidence score: { Math.round(score) }" /></li>
 				{/each}
 			</ul>
 			</Accordion>

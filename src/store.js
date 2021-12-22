@@ -16,7 +16,7 @@ const miniSearch = new MiniSearch({
   fields: ['label', 'cca2', 'cca3', 'cioc', 'ccn3', 'variations'], // fields to index for full-text search
   storeFields: ['label', ...OUTPUT_OPTIONS.map(o => getOptionValue(o))], // fields to return with search results
   searchOptions: {
-    prefix: true,
+    prefix: false,
     fuzzy: 0.2
   },
   extractField: (document, fieldName) => {
