@@ -3,13 +3,38 @@ import * as countries_raw from "./data/countries-1.json";
 import uniq from 'lodash/uniq.js';
 import get from 'lodash/get.js';
 import MiniSearch from 'minisearch';
-import { MIN_TERM_LENGTH, OUTPUT_OPTIONS, INPUT_TEMPLATE, MAX_NUMBER_OF_RESULTS } from './config.js';
+import { MIN_TERM_LENGTH, OUTPUT_OPTIONS, INPUT_TEMPLATE, MAX_NUMBER_OF_RESULTS, DELIMITERS, SPLIT_CHARS } from './config.js';
+import { browser } from '$app/env';
+
+function initValue (def, key) {
+	return browser ? window.localStorage.getItem(key) ?? def : def;
+}
+
+function safeValue (key, value) {
+	if (browser) {
+    window.localStorage.setItem(key, value);
+  }
+}
+
+// Delimiter
+export const DELIMITER = writable(initValue(DELIMITERS[0].value, 'cg-option-delimiter'));
+DELIMITER.subscribe((value) => safeValue('cg-option-delimiter', value));
+
+// Include Input?
+export const INCLUDE_INPUT = writable(initValue(false, 'cg-option-include-input'));
+INCLUDE_INPUT.subscribe((value) => safeValue('cg-option-include-input', value));
+
+// Include Name?
+export const INCLUDE_NAME = writable(initValue(false, 'cg-option-include-name'));
+INCLUDE_NAME.subscribe((value) => safeValue('cg-option-include-name', value));
+
 
 function getOptionValue (option) {
 	return get(option, 'value');
 }
 
-export const OUTPUT = writable(getOptionValue(OUTPUT_OPTIONS[0]));
+export const OUTPUT = writable(initValue(getOptionValue(OUTPUT_OPTIONS[0]), 'cg-option-output'));
+OUTPUT.subscribe((value) => safeValue('cg-option-output', value));
 
 const miniSearch = new MiniSearch({
 	idField: 'i',
@@ -34,7 +59,9 @@ miniSearch.addAll(countries_raw.default);
 
 export const MATCHES = writable({});
 export const CUSTOM = writable({});
-export const SPLIT_CHAR = writable('\n');
+
+export const SPLIT_CHAR = writable(initValue(getOptionValue(SPLIT_CHARS[0]), 'cg-option-split-char'));
+SPLIT_CHAR.subscribe((value) => safeValue('cg-option-split-char', value));
 
 export const INPUT_RAW = writable(null);
 export const INPUT = derived([INPUT_RAW, SPLIT_CHAR], ([$input, $char]) => {

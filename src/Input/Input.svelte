@@ -55,8 +55,8 @@
       class:label="{true}"
       class:bx--label--disabled="{disabled}"
     >
-      <h2>{labelText}</h2>
-      <p>Paste a list of country names in the left panel. Next, check the possible matches and copy the output list.</p>
+      <h2 class="label">{labelText}</h2>
+      <p>Paste a list of country names in the left panel. Next, check and adjust the possible matches and copy the output list.</p>
     </label>
     <label class="setting">
       Element seperator

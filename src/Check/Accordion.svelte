@@ -85,11 +85,8 @@ fieldset {
 	button, .options {
 		grid-column: 1 / 3;
 		display: grid;
+		grid-template-columns: auto 1fr;
 		grid-template-columns: subgrid;
-	}
-
-	.options ul {
-		
 	}
 
 	&[aria-disabled=true] {

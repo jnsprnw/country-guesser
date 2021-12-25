@@ -1,18 +1,15 @@
 <script>
-	import { PAIRS, OUTPUT } from '$lib/../store.js';
+	import { PAIRS, OUTPUT, DELIMITER, INCLUDE_INPUT, INCLUDE_NAME } from '$lib/../store.js';
 	import { OUTPUT_OPTIONS, DELIMITERS } from '$lib/../config.js';
 	import isUndefined from 'lodash/isUndefined.js';
 	import { writable } from 'svelte/store';
-	const DELIMITER = writable(DELIMITERS[0].value);
-	const INCLUDE_INPUT = writable(false);
-	const INCLUDE_NAME = writable(false);
 </script>
 
 <div class="page-output">
 	<header>
 		<h2 class="label">Copy matchings</h2>
 		<label class="setting">
-			Output country code
+			Output country codes
 			<select bind:value={$OUTPUT}>
 				{#each OUTPUT_OPTIONS as question}
 					<option value={question.value}>
