@@ -45,8 +45,8 @@
         grid-row: 1 / 2;
         align-content: start;
         border-bottom: 1px solid var(--gray-2);
-        margin-bottom: var(--spacing-1);
-        padding-bottom: var(--spacing-1);
+        margin-bottom: calc(var(--spacing-1) * 2);
+        padding-bottom: calc(var(--spacing-1) * 2);
       }
     }
   }
@@ -63,4 +63,14 @@ button strong {
   display: flex;
   justify-content: space-between;
   width: 100%;
+}
+
+.setting-left {
+  display: flex;
+  column-gap: var(--spacing-1);
+}
+
+.setting {
+  display: flex;
+  justify-content: space-between;
 }

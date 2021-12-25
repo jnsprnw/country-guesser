@@ -21,15 +21,15 @@
 				{/each}
 			</select>
 		</label>
-		<label>
+		<label class="setting-left">
 			<input type="checkbox" bind:checked={$INCLUDE_INPUT}>
 			Include input value
 		</label>
-		<label>
+		<label class="setting-left">
 			<input type="checkbox" bind:checked={$INCLUDE_NAME}>
 			Include common name
 		</label>
-		<label>
+		<label class="setting">
 			Separate output by
 			<select bind:value={$DELIMITER} disabled={!$INCLUDE_INPUT && !$INCLUDE_NAME}>
 				{#each DELIMITERS as { value, label }}
@@ -77,11 +77,6 @@
 			.label, label {
 				grid-column-end: span 3;
 			}
-
-			.setting {
-	      display: flex;
-	      justify-content: space-between;
-	    }
 		}
 	}
 

@@ -108,11 +108,6 @@
     .label, label {
       grid-column-end: span 3;
     }
-
-    .setting {
-      display: flex;
-      justify-content: space-between;
-    }
   }
 
   textarea {

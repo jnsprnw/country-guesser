@@ -40,20 +40,16 @@
 	{#if $OPTIONS.length}
 	<ul class="inputs">
 		{#each $OPTIONS as [input, treffer, status, selection, pair]}
-		<li class="input">
-			<i>{#if status === 'WARNING'}⚠️{:else if status === 'ERROR'}🚫{:else}✅{/if}</i>
-			<strong>{input}</strong>
-			{#if treffer && treffer.length}
-			<Accordion isDisabled={treffer.length < 2}>
-			<strong class="current-selection" slot="title">{#if pair }<span class:is-custom="{ selection !== 0 }">{ pair.label }</span>{/if} <i class="score" style="background-color: {color(pair.score)}" title="Confidence score: { Math.round(pair.score) }" /></strong>
-			<ul slot="content" class="options">
-				{#each treffer as { label, score, id }, i}
-				<li class="option" class:is-selected="{ selection === i }" on:click={() => selectCustomMatch(input, i)}><span>{ label }</span><i class="score" style="background-color: {color(score)}" title="Confidence score: { Math.round(score) }" /></li>
-				{/each}
-			</ul>
-			</Accordion>
-			{/if}
-		</li>
+		<Accordion isDisabled={treffer.length < 2} hasMatches={treffer && treffer.length}>
+		<i slot="status">{#if status === 'WARNING'}⚠️{:else if status === 'ERROR'}🚫{:else}✅{/if}</i>
+		<strong slot="input">{input}</strong>
+		<strong class="current-selection" slot="current">{#if pair }<span class:is-custom="{ selection !== 0 }">{ pair.label }</span>{/if} <i class="score" style="background-color: {color(pair.score)}" title="Confidence score: { Math.round(pair.score) }" /></strong>
+		<ul slot="content" class="options">
+			{#each treffer as { label, score, id }, i}
+			<li class="option" class:is-selected="{ selection === i }" on:click={() => selectCustomMatch(input, i)}><span>{ label }</span><i class="score" style="background-color: {color(score)}" title="Confidence score: { Math.round(score) }" /></li>
+			{/each}
+		</ul>
+		</Accordion>
 		{/each}
 	</ul>
 	{:else}
@@ -76,6 +72,10 @@
 					grid-column-end: span 2;
 					margin-top: calc(var(--spacing-1) / 4);
 					margin-bottom: calc(var(--spacing-1));
+
+					&:last-child {
+						margin-bottom: 0;
+					}
 				}
 			}
 		}
@@ -114,11 +114,19 @@
   				list-style: none;
 					padding: 0;
 					margin: 0;
+					display: grid;
+					grid-template-columns: subgrid;
+					grid-column: 2 / 3;
 
 					.option {
 						display: flex;
 						justify-content: space-between;
 						align-items: center;
+						margin-top: calc(var(--spacing-1) / 2);
+
+						/*&:first-child {
+							margin-top: 0;
+						}*/
 
 						&:not(.is-selected) {
 							cursor: pointer;
