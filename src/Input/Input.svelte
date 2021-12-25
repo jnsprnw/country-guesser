@@ -1,5 +1,6 @@
 <script>
-	import { INPUT_RAW } from '$lib/../store.js';
+	import { INPUT_RAW, SPLIT_CHAR } from '$lib/../store.js';
+  import { SPLIT_CHARS, INPUT_TEMPLATE } from '$lib/../config.js';
   /** Specify the textarea value */
   export let value = "";
   /** Specify the placeholder text */
@@ -33,6 +34,10 @@
   export let ref = null;
   // import WarningFilled16 from "../icons/WarningFilled16.svelte";
   $: errorId = `error-${id}`;
+
+  function useSampleData () {
+    INPUT_RAW.set(INPUT_TEMPLATE);
+  }
 </script>
 
 <!-- svelte-ignore a11y-mouse-events-have-key-events -->
@@ -43,14 +48,27 @@
   on:mouseleave
   class:bx--form-item="{true}"
 >
-  <label
-    for="{id}"
-    class:label="{true}"
-    class:bx--label--disabled="{disabled}"
-  >
-    <h2>{labelText}</h2>
-    <p>Paste a list of country names in the left panel. Next, check the possible matches and copy the output list.</p>
-  </label>
+  <header>
+    <label
+      for="{id}"
+      class:label="{true}"
+      class:bx--label--disabled="{disabled}"
+    >
+      <h2>{labelText}</h2>
+      <p>Paste a list of country names in the left panel. Next, check the possible matches and copy the output list.</p>
+    </label>
+    <label class="setting">
+      Element seperator
+      <select bind:value={$SPLIT_CHAR}>
+        {#each SPLIT_CHARS as { value, label }}
+          <option value={value}>
+            {label}
+          </option>
+        {/each}
+      </select>
+    </label>
+    <input type="button" value="Insert sample data" on:click={useSampleData}/>
+  </header>
   <div
     class:bx--text-area__wrapper="{true}"
     data-invalid="{invalid || undefined}"
@@ -80,6 +98,25 @@
 </div>
 
 <style type="scss">
+  header {
+    border-bottom: 1px solid var(--gray-2);
+    margin-bottom: var(--spacing-1);
+    padding-bottom: var(--spacing-1);
+    display: grid;
+    grid-template-columns: auto 1fr 2fr;
+    grid-column-gap: var(--spacing-1);
+    grid-row-gap: var(--spacing-1);
+
+    .label, label {
+      grid-column-end: span 3;
+    }
+
+    .setting {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+
   textarea {
     padding: calc(var(--spacing-1) / 3);
     resize: none;

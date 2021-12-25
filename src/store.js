@@ -34,10 +34,11 @@ miniSearch.addAll(countries_raw.default);
 
 export const MATCHES = writable({});
 export const CUSTOM = writable({});
+export const SPLIT_CHAR = writable('\n');
 
-export const INPUT_RAW = writable(INPUT_TEMPLATE);
-export const INPUT = derived(INPUT_RAW, (i) => {
-	return i ? i.split('\n').map(d => d.trim()).filter(d => d.length) : [];
+export const INPUT_RAW = writable(null);
+export const INPUT = derived([INPUT_RAW, SPLIT_CHAR], ([$input, $char]) => {
+	return $input ? $input.split($char).map(d => d.trim()).filter(d => d.length) : [];
 });
 
 export const UNIQUE_INPUT = derived(INPUT, (arr) => {
@@ -90,7 +91,7 @@ export const OPTIONS = derived([UNIQUE_INPUT, MATCHES, CUSTOM], ([input, matches
 export const PAIRS = derived([INPUT, MATCHES, CUSTOM, OUTPUT], ([input, matches, custom, ouput]) => {
 	return input.map((datum) => {
 		const user = get(custom, datum);
-		const name = get(matches, [datum, user ? user : 0, 'name.common']);
+		const name = get(matches, [datum, user ? user : 0, 'label']);
 		const code = get(matches, [datum, user ? user : 0, ouput]);
 		return [datum, code, name]
 	})

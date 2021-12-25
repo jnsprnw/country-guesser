@@ -11,7 +11,7 @@
 <div class="page-output">
 	<header>
 		<h2 class="label">Copy matchings</h2>
-		<label>
+		<label class="setting">
 			Output country code
 			<select bind:value={$OUTPUT}>
 				{#each OUTPUT_OPTIONS as question}
@@ -40,11 +40,13 @@
 			</select>
 		</label>
 	</header>
+	{#if $PAIRS.length}
 	<pre class="pairs">
 		{#each $PAIRS as [input, code, name]}
 		{#if $INCLUDE_INPUT}{input}{ @html $DELIMITER }{/if}{#if $INCLUDE_NAME}{name}{ @html $DELIMITER }{/if}{isUndefined(code) ? 'unknown' : code}<br />
 		{/each}
 	</pre>
+	{/if}
 </div>
 
 <style type="scss">
@@ -74,6 +76,11 @@
 			.label, label {
 				grid-column-end: span 3;
 			}
+
+			.setting {
+	      display: flex;
+	      justify-content: space-between;
+	    }
 		}
 	}
 

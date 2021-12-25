@@ -23,18 +23,19 @@
 		<dl>
 			<dt>✅</dt>
 			<dd class="dd-title">Successfully match</dd>
-			<dd class="dd-title"><small>{ SUCCESS }</small></dd>
+			<dd class="dd-title"><small>{ SUCCESS || 0 }</small></dd>
 			<dd class="dd-info">At least one matching country was found with a high confidence.</dd>
 			<dt>⚠️</dt>
 			<dd class="dd-title">Ambiguous result</dd>
-			<dd class="dd-title"><small>{ WARNING }</small></dd>
+			<dd class="dd-title"><small>{ WARNING || 0 }</small></dd>
 			<dd class="dd-info">Either one match with a low confidence was found or the top matches have a very similar confidence score rendering them both as plausible matches.</dd>
 			<dt>🚫</dt>
-			<dd class="dd-title">Error</dd>
-			<dd class="dd-title"><small>{ ERROR }</small></dd>
+			<dd class="dd-title">No suitable match</dd>
+			<dd class="dd-title"><small>{ ERROR || 0 }</small></dd>
 			<dd class="dd-info">No plausible match could be found for the specific input.</dd>
 		</dl>
 	</div>
+	{#if $OPTIONS.length}
 	<ul class="inputs">
 		{#each $OPTIONS as [input, treffer, status, selection, pair]}
 		<li class="input">
@@ -53,6 +54,9 @@
 		</li>
 		{/each}
 	</ul>
+	{:else}
+	<span>👈 Paste a list of countries on the left hand side.</span>
+	{/if}
 </div>
 
 <style type="scss">
@@ -87,6 +91,12 @@
 				grid-column-gap: var(--spacing-1);
   			grid-template-columns: 10px 2fr 4fr;
   			margin-bottom: var(--spacing-1);
+
+  			strong {
+  				white-space: nowrap;
+					overflow: hidden;
+					text-overflow: ellipsis;
+  			}
 
   			.is-custom {
 					background-color: yellow;
