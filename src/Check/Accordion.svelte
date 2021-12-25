@@ -59,11 +59,6 @@
 		border: 1px solid transparent;
 		border-radius: 3px;
 
-		&.is-expanded {
-			border-color: var(--gray-2);
-			box-shadow: var(--shadow-small-color);
-		}
-
 		&[aria-disabled=false] {
 			&, button {
 				cursor: pointer;
@@ -71,6 +66,11 @@
 
 			&:hover {
 				border-color: var(--gray-2);
+			}
+
+			&.is-expanded {
+				border-color: var(--color-accent-4);
+				// box-shadow: var(--shadow-small-color);
 			}
 		}
 	}

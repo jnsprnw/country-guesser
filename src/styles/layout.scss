@@ -75,3 +75,14 @@ button strong {
   display: flex;
   justify-content: space-between;
 }
+
+select, input {
+  background-color: #fff;
+  border: 1px solid var(--gray-2);
+  border-radius: 2px;
+  transition: border-color var(--transition);
+
+  &:hover, &:focus-visible {
+    border-color: var(--color-accent-4);
+  }
+}
