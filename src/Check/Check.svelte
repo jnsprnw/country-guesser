@@ -63,16 +63,8 @@
 
 <style type="scss">
 	.page-check {
-		display: grid;
-    grid-template-rows: subgrid;
 
 		header {
-			grid-row: 1 / 2;
-			align-content: start;
-			border-bottom: 1px solid var(--gray-2);
-			margin-bottom: var(--spacing-1);
-			padding-bottom: var(--spacing-1);
-
 			dl {
 				display: grid;
 				grid-template-columns: auto 1fr 2fr;
