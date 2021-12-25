@@ -18,23 +18,25 @@
 </script>
 
 <div class="page-check">
-	<h2 class="label">Check for ambiguity</h2>
-	<div class="legend">
-		<dl>
-			<dt>✅</dt>
-			<dd class="dd-title">Successfully match</dd>
-			<dd class="dd-title"><small>{ SUCCESS || 0 }</small></dd>
-			<dd class="dd-info">At least one matching country was found with a high confidence.</dd>
-			<dt>⚠️</dt>
-			<dd class="dd-title">Ambiguous result</dd>
-			<dd class="dd-title"><small>{ WARNING || 0 }</small></dd>
-			<dd class="dd-info">Either one match with a low confidence was found or the top matches have a very similar confidence score rendering them both as plausible matches.</dd>
-			<dt>🚫</dt>
-			<dd class="dd-title">No suitable match</dd>
-			<dd class="dd-title"><small>{ ERROR || 0 }</small></dd>
-			<dd class="dd-info">No plausible match could be found for the specific input.</dd>
-		</dl>
-	</div>
+	<header>
+		<h2 class="label">Check for ambiguity</h2>
+		<div class="legend">
+			<dl>
+				<dt>✅</dt>
+				<dd class="dd-title">Successfully match</dd>
+				<dd class="dd-title"><small>{ SUCCESS || 0 }</small></dd>
+				<dd class="dd-info">At least one matching country was found with a high confidence.</dd>
+				<dt>⚠️</dt>
+				<dd class="dd-title">Ambiguous result</dd>
+				<dd class="dd-title"><small>{ WARNING || 0 }</small></dd>
+				<dd class="dd-info">Either one match with a low confidence was found or the top matches have a very similar confidence score rendering them both as plausible matches.</dd>
+				<dt>🚫</dt>
+				<dd class="dd-title">No suitable match</dd>
+				<dd class="dd-title"><small>{ ERROR || 0 }</small></dd>
+				<dd class="dd-info">No plausible match could be found for the specific input.</dd>
+			</dl>
+		</div>
+	</header>
 	{#if $OPTIONS.length}
 	<ul class="inputs">
 		{#each $OPTIONS as [input, treffer, status, selection, pair]}
@@ -61,7 +63,12 @@
 
 <style type="scss">
 	.page-check {
-		.legend {
+		display: grid;
+    grid-template-rows: subgrid;
+
+		header {
+			grid-row: 1 / 2;
+			align-content: start;
 			border-bottom: 1px solid var(--gray-2);
 			margin-bottom: var(--spacing-1);
 			padding-bottom: var(--spacing-1);

@@ -47,6 +47,7 @@
   on:mouseenter
   on:mouseleave
   class:bx--form-item="{true}"
+  class="page-input"
 >
   <header>
     <label
@@ -98,7 +99,14 @@
 </div>
 
 <style type="scss">
+  .page-input {
+    display: grid;
+    grid-template-rows: subgrid;
+  }
+
   header {
+    grid-row: 1 / 2;
+    align-content: start;
     border-bottom: 1px solid var(--gray-2);
     margin-bottom: var(--spacing-1);
     padding-bottom: var(--spacing-1);
@@ -125,6 +133,8 @@
     border: 1px solid var(--gray-2);
     transition: border-color var(--transition);
     width: 100%;
+    position: sticky;
+    top: var(--spacing-1);
 
     &:hover {
       border-color: var(--color-accent-4);

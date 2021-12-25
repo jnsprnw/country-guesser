@@ -40,18 +40,30 @@
 			</select>
 		</label>
 	</header>
-	{#if $PAIRS.length}
-	<pre class="pairs">
-		{#each $PAIRS as [input, code, name]}
-		{#if $INCLUDE_INPUT}{input}{ @html $DELIMITER }{/if}{#if $INCLUDE_NAME}{name}{ @html $DELIMITER }{/if}{isUndefined(code) ? 'unknown' : code}<br />
-		{/each}
-	</pre>
-	{/if}
+	<div>
+		{#if $PAIRS.length}
+		<pre class="pairs">
+			{#each $PAIRS as [input, code, name]}
+			{#if $INCLUDE_INPUT}{input}{ @html $DELIMITER }{/if}{#if $INCLUDE_NAME}{name}{ @html $DELIMITER }{/if}{isUndefined(code) ? 'unknown' : code}<br />
+			{/each}
+		</pre>
+		{/if}
+	</div>
 </div>
 
 <style type="scss">
 	.page-output {
+		display: grid;
+    grid-template-rows: subgrid;
+
+    header {
+    	grid-row: 1 / 2;
+    	align-content: start;
+    }
+
 		.pairs {
+			position: sticky;
+    	top: var(--spacing-1);
 			user-select: all;
 			background-color: var(--gray-1);
 	    border: 0;
