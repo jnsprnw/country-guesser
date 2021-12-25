@@ -6,7 +6,7 @@
 </script>
 
 <header>
-	<h1>Country guesser</h1>
+	<h1>Country guesser</h1><small class="beta">beta</small>
 </header>
 <main class="page-main">
 	<Input />
