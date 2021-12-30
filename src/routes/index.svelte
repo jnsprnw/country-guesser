@@ -5,6 +5,10 @@
 	import Output from "../Output/Output.svelte";
 </script>
 
+<svelte:head>
+	<title>Country guesser</title>
+</svelte:head>
+
 <header>
 	<h1>Country guesser</h1><small class="beta">beta</small>
 </header>

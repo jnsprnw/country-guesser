@@ -58,14 +58,19 @@
 </div>
 
 <style type="scss">
-	.page-check {
+	@import "../styles/mixin";
+	@import "../styles/variables";
 
+	.page-check {
 		header {
 			dl {
 				display: grid;
-				grid-template-columns: auto 1fr 2fr;
+				grid-template-columns: auto 2fr 1fr;
 				grid-column-gap: var(--spacing-1);
-				// grid-row-gap: calc(var(--spacing-1) / 4);
+
+				@include media-query($wide) {
+			    grid-template-columns: auto 1fr 2fr;
+			  }
 
 				.dd-info {
 					grid-column-start: 2;

@@ -55,7 +55,7 @@
 		grid-column-gap: var(--spacing-1);
 		grid-template-columns: 10px 2fr 4fr;
 		margin-bottom: var(--spacing-1);
-		padding: calc(var(--spacing-1) / 2);
+		padding: calc(var(--spacing-1) / 2) 0;
 		border: 1px solid transparent;
 		border-radius: 3px;
 
