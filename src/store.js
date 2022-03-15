@@ -103,7 +103,6 @@ UNIQUE_INPUT.subscribe(data => {
 export const OPTIONS = derived([UNIQUE_INPUT, MATCHES, CUSTOM], ([input, matches, custom]) => {
 	return input.map((datum) => {
 		const treffer = get(matches, [datum]);
-		console.log({ matches })
 		const selection = get(custom, datum, 0);
 		const pair = get(treffer, selection);
 		const warning = !treffer || treffer.length === 0;
