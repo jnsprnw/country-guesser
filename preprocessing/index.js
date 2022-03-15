@@ -32,6 +32,7 @@ const data = countries.map((country, i) => {
 	let obj = {
 		i,
 		label: country.name.common,
+		official: country.name.official,
 		variations
 	};
 	codes.forEach(code => {

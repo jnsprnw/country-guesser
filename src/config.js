@@ -1,6 +1,6 @@
 export const MIN_TERM_LENGTH = 2;
 export const MAX_NUMBER_OF_RESULTS = 5;
-export const OUTPUT_OPTIONS = [{ value: 'cca2', label: 'ISO 3166-1 alpha-2 (CCA2)'}, { value: 'cca3', label: 'ISO 3166-1 alpha-3 (CCA3)' }, { value: 'ccn3', label: 'ISO 3166-1 numeric (CCN3)' }, { value: 'cioc', label: 'International Olympic Committee (CIOC)' }, { value: 'name.common', label: 'Common name' }];
+export const OUTPUT_OPTIONS = [{ value: 'cca2', label: 'ISO 3166-1 alpha-2 (CCA2)'}, { value: 'cca3', label: 'ISO 3166-1 alpha-3 (CCA3)' }, { value: 'ccn3', label: 'ISO 3166-1 numeric (CCN3)' }, { value: 'cioc', label: 'International Olympic Committee (CIOC)' }];
 export const DELIMITERS = [{ value: ';', label: 'Semicolon' }, { value: ',', label: 'Comma' }, { value: '&Tab;', label: 'Tab' }];
 export const SPLIT_CHARS = [{ value: '\n', label: 'New line' }, { value: ',', label: 'Comma' }, { value: ';', label: 'Semicolon' }];
 

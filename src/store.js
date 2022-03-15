@@ -39,7 +39,7 @@ OUTPUT.subscribe((value) => safeValue('cg-option-output', value));
 const miniSearch = new MiniSearch({
 	idField: 'i',
   fields: ['label', 'cca2', 'cca3', 'cioc', 'ccn3', 'variations'], // fields to index for full-text search
-  storeFields: ['label', ...OUTPUT_OPTIONS.map(o => getOptionValue(o))], // fields to return with search results
+  storeFields: ['label', 'official', ...OUTPUT_OPTIONS.map(o => getOptionValue(o))], // fields to return with search results
   searchOptions: {
     prefix: false,
     fuzzy: 0.2
@@ -63,9 +63,19 @@ export const CUSTOM = writable({});
 export const SPLIT_CHAR = writable(initValue(getOptionValue(SPLIT_CHARS[0]), 'cg-option-split-char'));
 SPLIT_CHAR.subscribe((value) => safeValue('cg-option-split-char', value));
 
+function cleanInput (str) {
+	return (str || '')
+		.replace(/^[-*][\t\s]*/, '') // Replaces unordered list characters
+		.replace(/^[0-9]+[.)]*[\t\s]*/, '') // Replaces ordered list characters
+		.trim()
+		.replace(/[sS]t[.]*\s/g, 'Saint ')
+		.replace(/[rR]ep[.]*\s/g, 'Republic ')
+		.replace(/[dD]em[.]*\s/g, 'Democratic ')
+}
+
 export const INPUT_RAW = writable(null);
 export const INPUT = derived([INPUT_RAW, SPLIT_CHAR], ([$input, $char]) => {
-	return $input ? $input.split($char).map(d => d.trim()).filter(d => d.length) : [];
+	return $input ? $input.split($char).map(d => cleanInput(d)).filter(d => d.length) : [];
 });
 
 export const UNIQUE_INPUT = derived(INPUT, (arr) => {
@@ -93,6 +103,7 @@ UNIQUE_INPUT.subscribe(data => {
 export const OPTIONS = derived([UNIQUE_INPUT, MATCHES, CUSTOM], ([input, matches, custom]) => {
 	return input.map((datum) => {
 		const treffer = get(matches, [datum]);
+		console.log({ matches })
 		const selection = get(custom, datum, 0);
 		const pair = get(treffer, selection);
 		const warning = !treffer || treffer.length === 0;
@@ -111,7 +122,7 @@ export const OPTIONS = derived([UNIQUE_INPUT, MATCHES, CUSTOM], ([input, matches
 				}
 			}
 		}
-		return [datum, treffer, status, selection, pair];
+		return [datum, treffer || [], status, selection, pair];
 	})
 })
 

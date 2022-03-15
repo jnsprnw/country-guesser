@@ -41,14 +41,14 @@
 	<ul class="inputs">
 		{#each $OPTIONS as [input, treffer, status, selection, pair]}
 		<Accordion isDisabled={treffer.length < 2} hasMatches={treffer && treffer.length}>
-		<i slot="status">{#if status === 'WARNING'}⚠️{:else if status === 'ERROR'}🚫{:else}✅{/if}</i>
-		<strong slot="input">{input}</strong>
-		<strong class="current-selection" slot="current">{#if pair }<span class:is-custom="{ selection !== 0 }">{ pair.label }</span>{/if} <i class="score" style="background-color: {color(pair.score)}" title="Confidence score: { Math.round(pair.score) }" /></strong>
-		<ul slot="content" class="options">
-			{#each treffer as { label, score, id }, i}
-			<li class="option" class:is-selected="{ selection === i }" on:click={() => selectCustomMatch(input, i)}><span>{ label }</span><i class="score" style="background-color: {color(score)}" title="Confidence score: { Math.round(score) }" /></li>
-			{/each}
-		</ul>
+			<i slot="status">{#if status === 'WARNING'}⚠️{:else if status === 'ERROR'}🚫{:else}✅{/if}</i>
+			<strong slot="input">{input}</strong>
+			<strong class="current-selection" slot="current">{#if pair }<span class:is-custom="{ selection !== 0 }" title={pair.official}>{ pair.label }</span>{/if} <i class="score" style="background-color: {color(pair.score)}" title="Confidence score: { Math.round(pair.score) }" /></strong>
+			<ul slot="content" class="options">
+				{#each treffer as { label, score, id, official }, i}
+				<li class="option" class:is-selected="{ selection === i }" on:click={() => selectCustomMatch(input, i)} title={official}><span>{ label }</span><i class="score" style="background-color: {color(score)}" title="Confidence score: { Math.round(score) }" /></li>
+				{/each}
+			</ul>
 		</Accordion>
 		{/each}
 	</ul>
