@@ -55,9 +55,14 @@
 		grid-column-gap: var(--spacing-1);
 		grid-template-columns: 10px 2fr 4fr;
 		margin-bottom: var(--spacing-1);
-		padding: calc(var(--spacing-1) / 2) 0;
+		padding: calc(var(--spacing-1) / 2) calc(var(--spacing-1) / 2);
+		margin: calc(var(--spacing-1) / 1) calc(var(--spacing-1) / -2);
 		border: 1px solid transparent;
 		border-radius: 3px;
+
+		&:first-child {
+			margin-top: calc(var(--spacing-1) / -2);
+		}
 
 		&[aria-disabled=false] {
 			&, button {
