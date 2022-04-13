@@ -12,8 +12,8 @@ St Kitts and Nevis
 Saint Kitts and Nevis
 Deutschland
 Duetschland
-São Tomé und Príncipe
-Sao Tome und Principe
+1) São Tomé und Príncipe
+2) Sao Tome und Principe
 Vietnam
 Viet nam
 Congo, Republic
@@ -21,10 +21,10 @@ DR Congo
 Democratic Republic of the Congo
 🇨🇿
 
-Iran
-Iraq
-Irak
-Ira
+1. Iran
+2. Iraq
+3. Irak
+4. Ira
 Barcelona
 USA
 US
