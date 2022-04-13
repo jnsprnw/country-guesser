@@ -1,9 +1,9 @@
 import { writable, readable, derived, get as take } from 'svelte/store';
-import * as countries_raw from "./data/countries-1.json";
+import * as countries_raw from "./data/countries_with_wikidata.json";
 import uniq from 'lodash/uniq.js';
 import get from 'lodash/get.js';
 import MiniSearch from 'minisearch';
-import { MIN_TERM_LENGTH, OUTPUT_OPTIONS, INPUT_TEMPLATE, MAX_NUMBER_OF_RESULTS, DELIMITERS, SPLIT_CHARS } from './config.js';
+import { KEY_OFFICIAL, KEY_LABEL, MIN_TERM_LENGTH, OUTPUT_OPTIONS, INPUT_TEMPLATE, MAX_NUMBER_OF_RESULTS, DELIMITERS, SPLIT_CHARS } from './config.js';
 import { browser } from '$app/env';
 
 function initValue (def, key) {
@@ -38,8 +38,8 @@ OUTPUT.subscribe((value) => safeValue('cg-option-output', value));
 
 const miniSearch = new MiniSearch({
 	idField: 'i',
-  fields: ['label', 'cca2', 'cca3', 'cioc', 'ccn3', 'variations'], // fields to index for full-text search
-  storeFields: ['label', 'official', ...OUTPUT_OPTIONS.map(o => getOptionValue(o))], // fields to return with search results
+  fields: [KEY_LABEL, 'cca2', 'cca3', 'cioc', 'ccn3', 'variations'], // fields to index for full-text search
+  storeFields: [KEY_LABEL, KEY_OFFICIAL, ...OUTPUT_OPTIONS.map(o => getOptionValue(o))], // fields to return with search results
   searchOptions: {
     prefix: false,
     fuzzy: 0.2
@@ -128,7 +128,7 @@ export const OPTIONS = derived([UNIQUE_INPUT, MATCHES, CUSTOM], ([input, matches
 export const PAIRS = derived([INPUT, MATCHES, CUSTOM, OUTPUT], ([input, matches, custom, ouput]) => {
 	return input.map((datum) => {
 		const user = get(custom, datum);
-		const name = get(matches, [datum, user ? user : 0, 'label']);
+		const name = get(matches, [datum, user ? user : 0, KEY_LABEL]);
 		const code = get(matches, [datum, user ? user : 0, ouput]);
 		return [datum, code, name]
 	})

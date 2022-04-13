@@ -4,6 +4,7 @@
 	import round from 'lodash/round.js';
 	import countBy from 'lodash/countBy.js';
 	import chroma from 'chroma-js';
+	import { KEY_LABEL, KEY_OFFICIAL, KEY_SCORE } from '$lib/../config.js';
 
 	const color = chroma.scale(['#f7f4f9', '#ce1256']).mode('lab').domain([200, 30]);
 
@@ -43,10 +44,10 @@
 		<Accordion isDisabled={treffer.length < 2} hasMatches={treffer && treffer.length}>
 			<i slot="status">{#if status === 'WARNING'}⚠️{:else if status === 'ERROR'}🚫{:else}✅{/if}</i>
 			<strong slot="input">{input}</strong>
-			<strong class="current-selection" slot="current">{#if pair }<span class:is-custom="{ selection !== 0 }" title={pair.official}>{ pair.label }</span>{/if} <i class="score" style="background-color: {color(pair.score)}" title="Confidence score: { Math.round(pair.score) }" /></strong>
+			<strong class="current-selection" slot="current">{#if pair }<span class:is-custom="{ selection !== 0 }" title={pair[KEY_OFFICIAL]}>{ pair[KEY_LABEL] }</span>{/if} <i class="score" style="background-color: {color(pair[KEY_SCORE])}" title="Confidence score: { Math.round(pair[KEY_SCORE]) }" /></strong>
 			<ul slot="content" class="options">
-				{#each treffer as { label, score, id, official }, i}
-				<li class="option" class:is-selected="{ selection === i }" on:click={() => selectCustomMatch(input, i)} title={official}><span>{ label }</span><i class="score" style="background-color: {color(score)}" title="Confidence score: { Math.round(score) }" /></li>
+				{#each treffer as item, i}
+				<li class="option" class:is-selected="{ selection === i }" on:click={() => selectCustomMatch(input, i)} title={item[KEY_OFFICIAL]}><span>{ item[KEY_LABEL] }</span><i class="score" style="background-color: {color(item[KEY_SCORE])}" title="Confidence score: { Math.round(item[KEY_SCORE]) }" /></li>
 				{/each}
 			</ul>
 		</Accordion>

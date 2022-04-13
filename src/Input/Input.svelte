@@ -63,7 +63,7 @@
       <select bind:value={$SPLIT_CHAR}>
         {#each SPLIT_CHARS as { value, label }}
           <option value={value}>
-            {label}
+            { label }
           </option>
         {/each}
       </select>
