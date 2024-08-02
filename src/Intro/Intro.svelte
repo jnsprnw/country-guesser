@@ -1,5 +1,5 @@
 <script>
-	import { COUNTRIES } from '$lib/../store.js';
+	import { COUNTRIES } from '$lib/store.js';
 
 	$: countries = $COUNTRIES.length;
 </script>

@@ -1,9 +1,8 @@
 <script>
-	import { PAIRS, OUTPUT, DELIMITER, INCLUDE_INPUT, INCLUDE_NAME } from '$lib/../store.js';
-	import { OUTPUT_OPTIONS, DELIMITERS } from '$lib/../config.js';
+	import { PAIRS, OUTPUT, DELIMITER, INCLUDE_INPUT, INCLUDE_NAME } from '$lib/store.js';
+	import { OUTPUT_OPTIONS, DELIMITERS } from '$lib/config.js';
 	import isUndefined from 'lodash/isUndefined.js';
-	import { writable } from 'svelte/store';
-</script>
+	</script>
 
 <div class="page-output">
 	<header>
@@ -48,7 +47,7 @@
 	</div>
 </div>
 
-<style type="scss">
+<style lang="scss">
 	.page-output {
 		.pairs {
 			position: sticky;

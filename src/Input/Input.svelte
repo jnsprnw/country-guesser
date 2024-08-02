@@ -1,6 +1,6 @@
 <script>
-	import { INPUT_RAW, SPLIT_CHAR } from '$lib/../store.js';
-  import { SPLIT_CHARS, INPUT_TEMPLATE } from '$lib/../config.js';
+	import { INPUT_RAW, SPLIT_CHAR } from '$lib/store.js';
+  import { SPLIT_CHARS, INPUT_TEMPLATE } from '$lib/config.js';
   /** Specify the textarea value */
   export let value = "";
   /** Specify the placeholder text */
@@ -98,7 +98,7 @@
   </div>
 </div>
 
-<style type="scss">
+<style lang="scss">
   header {
     display: grid;
     grid-template-columns: auto 1fr 2fr;

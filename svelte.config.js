@@ -7,9 +7,6 @@ const config = {
   preprocess: sveltePreprocess(),
   kit: {
     adapter: process.env.NETLIFY ? adapter() : adapterCloudflare(),
-
-    // hydrate the <div id="svelte"> element in src/app.html
-    target: "#svelte",
   },
 };
 

@@ -46,7 +46,7 @@
 	</fieldset>
 </li>
 
-<style type="scss">
+<style lang="scss">
 
 	.input {
 		transition: border-color var(--transition), box-shadow var(--transition);
@@ -79,7 +79,7 @@
 			}
 		}
 	}
-	
+
 fieldset {
 	margin: 0;
 	border: 0;
@@ -126,6 +126,6 @@ fieldset {
 	}
 
 	svg { transition: transform 0.2s ease-in; }
-	
+
 	button[aria-expanded=true] svg { transform: rotate(0.25turn); }
 </style>

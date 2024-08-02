@@ -1,10 +1,9 @@
 <script>
 	import Accordion from './Accordion.svelte';
-	import { OPTIONS, CUSTOM } from '$lib/../store.js';
-	import round from 'lodash/round.js';
+	import { OPTIONS, CUSTOM } from '$lib/store.js';
 	import countBy from 'lodash/countBy.js';
 	import chroma from 'chroma-js';
-	import { KEY_LABEL, KEY_OFFICIAL, KEY_SCORE } from '$lib/../config.js';
+	import { KEY_LABEL, KEY_OFFICIAL, KEY_SCORE } from '$lib/config.js';
 
 	const color = chroma.scale(['#f7f4f9', '#ce1256']).mode('lab').domain([200, 30]);
 
@@ -58,7 +57,7 @@
 	{/if}
 </div>
 
-<style type="scss">
+<style lang="scss">
 	@import "../styles/mixin";
 	@import "../styles/variables";
 
